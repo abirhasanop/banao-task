@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { FaPen, FaShareAlt } from "react-icons/fa"
+import { FaPen } from "react-icons/fa"
 import { IoLocationOutline } from "react-icons/io5"
 import { FiAlertCircle } from 'react-icons/fi'
-import { TfiEye } from 'react-icons/tfi';
 
 const Aside = () => {
-    const [people, setPeople] = useState([])
     const [follow1, setFollow1] = useState(true)
     const [follow2, setFollow2] = useState(true)
     const [follow3, setFollow3] = useState(true)
     const [follow4, setFollow4] = useState(true)
 
-    useEffect(() => {
-        fetch(`people.json`)
-            .then(res => res.json())
-            .then(data => setPeople(data))
-    }, [])
 
 
     console.log(follow1);
@@ -49,26 +42,7 @@ const Aside = () => {
 
 
             <section className='mt-16'>
-                <h2 className='text-xl uppercase'>{"👍"} REcommended Groups</h2>
-                {/* {
-                    people?.map((people, i) => {
-                        return (
-                            <div key={i} className="flex justify-between items-center my-4">
-                                <div className="flex items-center">
-                                    <img className="object-cover w-10 h-10 rounded-full" src={people?.img} alt="Avatar" />
-                                    <h1 className="mx-2 font-semibold text-gray-700 dark:text-gray-200">{people?.name}</h1>
-                                </div>
-
-                                <div className='flex items-center gap-8'>
-                                    <button
-                                        className='btn btn-sm bg-[#EDEEF0] border-none text-black hover:bg-[#BFBFC0]'>
-                                        Follow
-                                    </button>
-                                </div>
-                            </div>
-                        )
-                    })
-                } */}
+                <h2 className='text-xl uppercase'>{"👍"} Recommended Groups</h2>
 
                 <div className="flex justify-between items-center my-4">
                     <div className="flex items-center">

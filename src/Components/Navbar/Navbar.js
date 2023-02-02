@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { FaSortDown } from "react-icons/fa"
 import Logo from "../../Assets/main.PNG"
+import { AuthContext } from '../../Contexts/AuthProvider';
 import LoginModal from '../Login/LoginModal';
 import SignUpModal from '../SIgnUpModal/SignUpModal';
 
 const Navbar = () => {
+    const { user, logout } = useContext(AuthContext)
+
     return (
         <div>
             <div className={`${"shadow-xl bg-white"}`}>
@@ -45,13 +49,27 @@ const Navbar = () => {
                             </label>
 
                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><label htmlFor="my-modal-3">
-                                    Sign Up
-                                </label></li>
-                                <li><label htmlFor="my-modal-4">
-                                    Login
-                                </label>
-                                </li>
+                                {
+                                    !user ?
+                                        <>
+                                            <li><label htmlFor="my-modal-3">
+                                                Sign Up
+                                            </label></li>
+                                            <li><label htmlFor="my-modal-4">
+                                                Login
+                                            </label>
+                                            </li>
+                                        </>
+                                        : <>
+                                            <li onClick={() => {
+                                                toast.success("Logout Succesfull")
+                                                logout()
+                                            }}><label>
+                                                    Logout
+                                                </label>
+                                            </li>
+                                        </>
+                                }
                             </ul>
                         </div>
 
