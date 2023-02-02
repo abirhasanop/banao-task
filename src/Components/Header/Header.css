@@ -1,0 +1,10 @@
+.banner-image {
+    display: inline-block;
+
+    filter: brightness(50%);
+    /* W3C */
+}
+
+.banner-content {
+    filter: brightness(100%);
+}
