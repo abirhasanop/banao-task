@@ -13,19 +13,10 @@ const Navbar = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
                         </label>
-                        {/* <div className="dropdown">
-                        <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                        </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Home</a></li>
-                            <li><a>Attendance</a></li>
-                        </ul>
-                    </div> */}
+
                         <a href='#_'>
                             <div className='flex gap-2 items-center'>
                                 <img className='w-32 h-10 hidden md:block' alt="" src={Logo} />
-                                {/* <a className="normal-case text-xl text-[#1E2772] font-bold">NEXTGEN IT</a> */}
                             </div>
                         </a>
                     </div>
@@ -47,7 +38,7 @@ const Navbar = () => {
                             <label className='cursor-pointer' tabIndex={0}>
                                 <p className='font-bold text-lg flex items-center gap-1'>
                                     Create account. <span className='text-[#2F6CE5]'>It’s free!</span>
-                                    <span><FaSortDown /></span>
+                                    <span><FaSortDown className='mb-2' /></span>
                                 </p>
                             </label>
 
