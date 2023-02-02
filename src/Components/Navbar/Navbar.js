@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaSortDown } from "react-icons/fa"
 import Logo from "../../Assets/main.PNG"
+import LoginModal from '../Login/LoginModal';
+import SignUpModal from '../SIgnUpModal/SignUpModal';
 
 const Navbar = () => {
     return (
@@ -43,8 +45,13 @@ const Navbar = () => {
                             </label>
 
                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a>Sign Up</a></li>
-                                <li><a>Login</a></li>
+                                <li><label htmlFor="my-modal-3">
+                                    Sign Up
+                                </label></li>
+                                <li><label htmlFor="my-modal-4">
+                                    Login
+                                </label>
+                                </li>
                             </ul>
                         </div>
 
@@ -73,6 +80,10 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+
+
+            <SignUpModal />
+            <LoginModal />
         </div>
     );
 };

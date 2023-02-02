@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Leisure",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDGKIUcuZz_W01bUi5UjT5Iabmwbn8FAGeZ16l_UbFpfrgtjxDb0_TcRPGHiV-8o7F-As&usqp=CAU"
+    },
+    {
+        "name": "Activism",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJA-U9AkzUF1iqBCQFhqe9pXjZr3uhajD0Zw&usqp=CAU"
+    },
+    {
+        "name": "MBA",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvNUAv-Ogc0SJqlXlhOoWHT3sGOc5BFO0hxQ&usqp=CAU"
+    },
+    {
+        "name": "Philosophy",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsooAls2JDy0Bm13yCYgZd5LL1CJf-TQYOuw&usqp=CAU"
+    }
+]
