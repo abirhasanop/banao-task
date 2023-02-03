@@ -8,7 +8,7 @@ const PostCard = ({ news }) => {
     const { img, newsType, title, description, authorName, authorImage, extra, varient } = news
     return (
         <div className='my-5'>
-            <div className="max-w-4xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <div className="max-w-4xl overflow-hidden rounded-lg shadow-md dark:bg-gray-800">
                 <img className="object-cover w-full h-64" src={img} alt="Article" />
 
                 <div className="p-6">

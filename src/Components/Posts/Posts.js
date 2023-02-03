@@ -18,10 +18,10 @@ const Posts = () => {
 
 
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto p-2 lg:p-2'>
             <Tabls />
 
-            <article className='flex justify-between'>
+            <article className='flex flex-col lg:flex-row justify-between'>
                 <section>
                     {
                         news?.map((news, i) => {
@@ -34,7 +34,7 @@ const Posts = () => {
                 </section>
 
 
-                <aside>
+                <aside className='p-5 lg:p-0'>
                     <Aside />
                 </aside>
             </article>

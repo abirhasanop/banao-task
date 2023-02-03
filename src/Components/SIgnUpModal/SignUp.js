@@ -3,10 +3,39 @@ import SignImage from "../../Assets/signUp.png"
 import Logo from "../../Assets/main.PNG"
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
-import SignUpModal from './SignUpModal';
+// import SignUpModal from './SignUpModal';
 
 const SignUp = () => {
-    const { signInWithGoogle } = useContext(AuthContext)
+    const { signInWithGoogle, createUser, updateUserProfile, verifyEmail } = useContext(AuthContext)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const name = form.name.value
+        const email = form.email.value
+        const password = form.password.value
+
+        console.log(name, email, password)
+        createUser(email, password)
+            .then(result => {
+                const user = result.user
+                console.log(user);
+
+                updateUserProfile(name, "")
+                    .then(() => {
+                        verifyEmail()
+                            .then(() => {
+                                toast.success("Please check your email for varification link")
+                            })
+                    })
+
+
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
 
     // Google sign in
@@ -41,52 +70,54 @@ const SignUp = () => {
                         <span className="w-5/6 px-4 py-3 font-bold text-center">Sign in with Google</span>
                     </a>
 
-                    <div className="flex items-center justify-between mt-4">
-                        <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
+                    <form onSubmit={handleSubmit}>
+                        <div className="flex items-center justify-between mt-4">
+                            <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
 
-                        <a href="#_" className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline">or login
-                            with email</a>
+                            <a href="#_" className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline">or login
+                                with email</a>
 
-                        <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="name">
-                            Your Name
-                        </label>
-                        <input id="name" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="name" />
-                    </div>
-                    <div className="mt-4">
-                        <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="LoggingEmailAddress">Email Address</label>
-                        <input id="LoggingEmailAddress" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" />
-                    </div>
-
-                    <div className="mt-4">
-                        <div className="flex justify-between">
-                            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Password</label>
+                            <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
                         </div>
 
-                        <input id="loggingPassword" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" />
-                    </div>
+                        <div className="mt-4">
+                            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="name">
+                                Your Name
+                            </label>
+                            <input name='name' id="name" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="name" required />
+                        </div>
+                        <div className="mt-4">
+                            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="LoggingEmailAddress">Email Address</label>
+                            <input name='email' id="LoggingEmailAddress" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" required />
+                        </div>
 
-                    <div className="mt-6">
-                        <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-                            Sign In
-                        </button>
-                    </div>
+                        <div className="mt-4">
+                            <div className="flex justify-between">
+                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Password</label>
+                            </div>
 
-                    <div className="flex items-center justify-between mt-4">
-                        <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+                            <input name='password' id="loggingPassword" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" required />
+                        </div>
 
-                        <a href="#_" className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or sign up</a>
+                        <div className="mt-6">
+                            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+                                Sign In
+                            </button>
+                        </div>
 
-                        <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-                    </div>
+                        <div className="flex items-center justify-between mt-4">
+                            <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+
+                            <a href="#_" className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or sign up</a>
+
+                            <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+                        </div>
+                    </form>
                 </div>
             </div>
 
 
-            <SignUpModal />
+            {/* <SignUpModal /> */}
         </div>
     );
 };

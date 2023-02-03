@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { FaSortDown } from "react-icons/fa"
+import { FaSortDown, FaUser } from "react-icons/fa"
 import Logo from "../../Assets/main.PNG"
 import { AuthContext } from '../../Contexts/AuthProvider';
 import LoginModal from '../Login/LoginModal';
@@ -9,9 +9,37 @@ import SignUpModal from '../SIgnUpModal/SignUpModal';
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext)
 
+
+    // Dark mode starts
+    const [dark, setDark] = useState(false)
+
+    const handleTheme = () => {
+        setDark(!dark)
+        localStorage.setItem("dark-mode", !dark)
+    }
+
+    useEffect(() => {
+        if (dark) {
+            document.querySelector("html").setAttribute("data-theme", "night")
+        } else {
+            document.querySelector("html").setAttribute("data-theme", "light")
+        }
+    }, [dark])
+
+    useEffect(() => {
+        const localDark = JSON.parse(localStorage.getItem("dark-mode"))
+        console.log(localDark);
+        setDark(localDark)
+    }, [])
+
+    // dark mode ends
+
+
+
+
     return (
         <div>
-            <div className={`${"shadow-xl bg-white"}`}>
+            <div className={`${"shadow-xl"}`}>
                 <div className="navbar container mx-auto">
                     <div className="navbar-start">
                         <label htmlFor="my-drawer-2" className="btn bg-[#1E2772] hover:bg-[#222d94] btn-circle lg:hidden">
@@ -42,10 +70,20 @@ const Navbar = () => {
 
                         <div className="dropdown dropdown-end">
                             <label className='cursor-pointer' tabIndex={0}>
-                                <p className='font-bold text-lg flex items-center gap-1'>
-                                    Create account. <span className='text-[#2F6CE5]'>It’s free!</span>
-                                    <span><FaSortDown className='mb-2' /></span>
-                                </p>
+                                {
+                                    user?.displayName ? <>
+                                        <p className='font-bold text-lg flex items-center gap-1'>
+                                            {user?.displayName}
+                                            <span><FaSortDown className='mb-2' /></span>
+                                        </p>
+                                    </>
+                                        : <>
+                                            <p className='font-bold text-lg flex items-center gap-1'>
+                                                Create account. <span className='text-[#2F6CE5]'>It’s free!</span>
+                                                <span><FaSortDown className='mb-2' /></span>
+                                            </p>
+                                        </>
+                                }
                             </label>
 
                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -68,31 +106,43 @@ const Navbar = () => {
                                                     Logout
                                                 </label>
                                             </li>
+                                            {/* <li onClick={logout}><label>
+                                                Logout
+                                            </label>
+                                            </li> */}
                                         </>
                                 }
                             </ul>
                         </div>
 
 
-                        <div className="ml-2 dropdown dropdown-end">
-                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
-                                    <img src="https://placeimg.com/80/80/people" alt='img' />
-                                </div>
-                            </label>
-                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                                <li>
-                                    <a href='#_' className="justify-between">
-                                        Profile
-                                        <span className="badge">New</span>
-                                    </a>
-                                </li>
-                                <li><a href='#_'>Settings</a></li>
-                                <li><a href='#_'>Logout</a></li>
-                            </ul>
-                        </div>
+                        {
+                            user?.photoURL ?
+                                <>
+                                    <div className="ml-2 dropdown dropdown-end">
+                                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                            <div className="w-10 rounded-full">
+                                                <img src={user?.photoURL} alt='img' />
+                                            </div>
+                                        </label>
+                                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                            <li>
+                                                <a href='#_' className="justify-between">
+                                                    Profile
+                                                    <span className="badge">New</span>
+                                                </a>
+                                            </li>
+                                            <li><a href='#_'>Settings</a></li>
+                                            <li><a href='#_'>Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </>
+                                : <>
+                                    <FaUser className='text-2xl mx-3' />
+                                </>
+                        }
                         <div className='ml-2'>
-                            <input type="checkbox" className="toggle" />
+                            <input onClick={handleTheme} type="checkbox" className="toggle" checked={dark} />
                         </div>
 
                     </div>
@@ -100,8 +150,8 @@ const Navbar = () => {
             </div>
 
 
-            <SignUpModal />
-            <LoginModal />
+            {!user && <SignUpModal />}
+            {!user && <LoginModal />}
         </div>
     );
 };
